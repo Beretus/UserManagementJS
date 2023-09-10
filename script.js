@@ -54,6 +54,11 @@ closeBtn.addEventListener("click", () => {
 
 submitBtn.addEventListener("click", () => {
   trClone = trInfo.cloneNode(true);
+  let children = trClone.childNodes;
+  children[1].innerText = formFirstName.value;
+  children[3].innerText = formSecondName.value;
+  children[5].innerText = formEmail.value;
+  children[7].innerText = formPhone.value;
+
   tBody.append(trClone);
-  toggleModal();
 });
