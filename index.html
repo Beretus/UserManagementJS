@@ -29,6 +29,29 @@
       <input type="text" class="search-user" placeholder="Search for users" />
     </section>
 
+    <nav class="menu-add is-hidden">
+      <div class="menu-header">
+        <p class="menu-title">Add User</p>
+      </div>
+      <div class="menu-inputs">
+        <label for="">Firstname</label>
+        <input type="text" class="user-first" placeholder="Firstname" />
+        <label for="">Secondname</label>
+
+        <input type="text" class="user-second" placeholder="Secondname" />
+        <label for="">Phone number</label>
+
+        <input type="text" class="user-phone" placeholder="Phone number" />
+        <label for="">Email</label>
+
+        <input type="text" class="user-email" placeholder="Email" />
+      </div>
+      <div class="menu-buttons">
+        <button class="close">Close</button>
+        <button class="submit">Submit</button>
+      </div>
+    </nav>
+
     <main class="user-list">
       <table class="user-table">
         <thead>
@@ -40,8 +63,8 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody id="table-body">
+          <tr class="user-info">
             <td>Peter</td>
             <td>Griffin</td>
             <td>p.griffin@gmail.com</td>
@@ -51,7 +74,7 @@
               ><button class="delete">Delete</button>
             </td>
           </tr>
-          <tr>
+          <tr class="user-info">
             <td>Peter</td>
             <td>Griffin</td>
             <td>p.griffin@gmail.com</td>
