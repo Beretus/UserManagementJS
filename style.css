@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+
+*,
+html,
+body {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  box-sizing: border-box;
+  border: none;
+  font-family: Lato;
+  min-height: 100%;
+  height: auto;
+}
+
+body {
+  min-height: 100vh;
+}
+
+header.title {
+  width: 100%;
+  line-height: 3em;
+  background-color: rgb(86, 86, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5em;
+}
+
+.management {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 1.5em;
+}
+
+.management .add-user {
+  padding: 1em;
+  color: white;
+  font-size: 1em;
+  border-radius: 0.3em;
+  background-color: rgb(69, 69, 253);
+}
+
+.management input {
+  padding: 1em;
+  font-size: 1em;
+  border: 2px solid rgb(218, 216, 216);
+  border-radius: 0.3em;
+  background-color: rgb(247, 244, 244);
+}
+
+main {
+  display: flex;
+  max-width: 1200px;
+  justify-content: center;
+  align-items: center;
+  margin: 3em auto auto auto;
+}
+
+main .user-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+main .user-table thead tr {
+  background-color: rgb(86, 86, 255);
+  color: #ffffff;
+  text-align: left;
+}
+
+main .user-table th,
+main .user-table td {
+  padding: 12px 15px;
+}
+
+main .user-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+main .user-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+main .user-table tbody tr:last-of-type {
+  border-bottom: 2px solid rgb(86, 86, 255);
+}
+
+main .user-table tbody tr td button {
+  padding: 10px 20px 10px 20px;
+  margin: 0 2px 0 2px;
+}
+
+main .user-table tbody tr td button:hover {
+  background-color: rgb(86, 86, 255);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+main .user-table tbody tr.active-row {
+  font-weight: bold;
+  color: rgb(86, 86, 255);
+}
