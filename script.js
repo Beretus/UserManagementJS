@@ -34,6 +34,11 @@ let formSecondName = document.querySelector(".user-second");
 let formPhone = document.querySelector(".user-phone");
 let formEmail = document.querySelector(".user-email");
 
+//objects
+
+let users = [];
+let id = -1;
+
 //functions
 
 //show modal and blur background
@@ -58,6 +63,59 @@ function changeMenuToUpdate() {
   submitBtn.innerHTML = "Update";
 }
 
+function populateFromLS() {
+  items = JSON.parse(localStorage.getItem("users-list"));
+  console.log(items);
+  if (items != null) {
+    items.forEach((user) => {
+      tBody.innerHTML += `
+      <tr class="user-info">
+              <td id=${user.id}>${user.firstname}</td>
+              <td>${user.secondname}</td>
+              <td>${user.email}</td>
+              <td>${user.phone}</td>
+              <td>
+                <button class="update">Update</button
+                ><button class="delete">Delete</button>
+              </td>
+      </tr>
+      `;
+    });
+  } else {
+    tBody.innerHTML += `<p>Add users!</p>`;
+  }
+
+  console.log(items);
+}
+
+function addToList() {
+  let users = JSON.parse(localStorage.getItem("users-list")) || [];
+
+  let check = users.length;
+  tBody.innerHTML += `
+    <tr class="user-info">
+      <td id=${check}>${formFirstName.value}</td>
+      <td>${formSecondName.value}</td>
+      <td>${formEmail.value}</td>
+      <td>${formPhone.value}</td>
+      <td>
+        <button class="update">Update</button
+        ><button class="delete">Delete</button>
+      </td>
+    </tr>
+  `;
+
+  users.push({
+    id: check,
+    firstname: formFirstName.value,
+    secondname: formSecondName.value,
+    email: formEmail.value,
+    phone: formPhone.value,
+  });
+
+  localStorage.setItem("users-list", JSON.stringify(users));
+}
+
 //Handling buttons
 
 addBtn.addEventListener("click", (e) => {
@@ -71,40 +129,48 @@ closeBtn.addEventListener("click", () => {
 
 menuAdd.addEventListener("click", (e) => {
   //Adding new user to table
+
   if (e.target.classList.contains("submit")) {
-    trClone = trInfo.cloneNode(true);
-    let children = trClone.childNodes;
-    children[1].innerText = formFirstName.value;
-    children[3].innerText = formSecondName.value;
-    children[5].innerText = formEmail.value;
-    children[7].innerText = formPhone.value;
-    tBody.appendChild(trClone);
+    addToList();
     changeMenuToSubmit();
     toggleModal();
   }
 });
 
-//Updating (need to listen on main, due to dynamic creating of users)
+let children;
 main.addEventListener("click", (e) => {
   if (e.target.classList.contains("update")) {
     let parent = e.target.closest("tr");
-    let children = parent.childNodes;
+    children = parent.childNodes;
     formFirstName.value = children[1].innerText;
     formSecondName.value = children[3].innerText;
     formEmail.value = children[5].innerText;
     formPhone.value = children[7].innerText;
 
-    //new values from form
+    //new values from Form
 
     changeMenuToUpdate();
     toggleModal();
-    menuAdd.addEventListener("click", (e) => {
-      if (e.target.classList.contains("update-btn")) {
-        children[1].innerText = formFirstName.value;
-        children[3].innerHTML = formSecondName.value;
-        children[5].innerHTML = formEmail.value;
-        children[7].innerHTML = formPhone.value;
-      }
-    });
   }
 });
+
+menuAdd.addEventListener("click", (e) => {
+  if (e.target.classList.contains("update-btn")) {
+    let users = JSON.parse(localStorage.getItem("users-list"));
+    let userId = children[1].id;
+    console.log(userId);
+    users[userId].firstname = formFirstName.value;
+    users[userId].secondname = formSecondName.value;
+    users[userId].email = formEmail.value;
+    users[userId].phone = formPhone.value;
+
+    children[1].innerHTML = formFirstName.value;
+    children[3].innerHTML = formSecondName.value;
+    children[5].innerHTML = formEmail.value;
+    children[7].innerHTML = formPhone.value;
+
+    localStorage.setItem("users-list", JSON.stringify(users));
+  }
+});
+
+populateFromLS();
