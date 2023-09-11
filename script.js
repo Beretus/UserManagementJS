@@ -27,12 +27,16 @@ let tBody = document.querySelector("#table-body");
 
 let menuTitle = document.querySelector(".menu-title");
 
+let userTr = document.querySelectorAll("#table-body");
+console.log(userTr);
 //forms
 
 let formFirstName = document.querySelector(".user-first");
 let formSecondName = document.querySelector(".user-second");
 let formPhone = document.querySelector(".user-phone");
 let formEmail = document.querySelector(".user-email");
+
+let searchUsers = document.querySelector(".search-user");
 
 //objects
 
@@ -116,6 +120,30 @@ function addToList() {
   localStorage.setItem("users-list", JSON.stringify(users));
 }
 
+let searchArray = [];
+function showUsers(value) {
+  //Change nodeList to array
+  let children;
+  searchArray = [...userTr].find((cell) => {
+    if (value !== "") {
+      children = [...cell.children];
+      children.forEach((child) => {
+        // console.log(childek.innerText);
+        if (!child.innerText.slice(0, -12).includes(value)) {
+          child.classList.add("is-hidden");
+        } else {
+          child.classList.remove("is-hidden");
+        }
+      });
+    } else if (value === "") {
+      children = [...cell.children];
+      children.forEach((child) => {
+        child.classList.remove("is-hidden");
+      });
+    }
+  });
+}
+
 //Handling buttons
 
 addBtn.addEventListener("click", (e) => {
@@ -193,4 +221,11 @@ main.addEventListener("click", (e) => {
     elementToRemove.remove();
   }
 });
+
+let word = "";
+searchUsers.addEventListener("keyup", (e) => {
+  let searchValue = searchUsers.value;
+  showUsers(searchValue);
+});
+
 populateFromLS();
