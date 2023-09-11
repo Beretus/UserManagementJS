@@ -65,7 +65,7 @@ function changeMenuToUpdate() {
 
 function populateFromLS() {
   items = JSON.parse(localStorage.getItem("users-list"));
-  console.log(items);
+  // console.log(items);
   if (items != null) {
     items.forEach((user) => {
       tBody.innerHTML += `
@@ -173,4 +173,24 @@ menuAdd.addEventListener("click", (e) => {
   }
 });
 
+main.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete")) {
+    // Get users from LS
+    let users = JSON.parse(localStorage.getItem("users-list"));
+    let elementToRemove = e.target.closest("tr");
+    let userId = e.target.closest("tr").childNodes[1].id;
+
+    // Remove the user from the list
+    const filteredUsers = users.filter((user) => user.id !== parseInt(userId));
+
+    // update remaining users ids
+    for (let i = 0; i < filteredUsers.length; i++) {
+      filteredUsers[i].id = i;
+    }
+
+    // set filtered users in LS
+    localStorage.setItem("users-list", JSON.stringify(filteredUsers));
+    elementToRemove.remove();
+  }
+});
 populateFromLS();
